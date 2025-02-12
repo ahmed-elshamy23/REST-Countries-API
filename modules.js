@@ -1,4 +1,4 @@
-export { insertCountry, filterCountries, parseApi, showDetails };
+export { insertCountry, filterCountries, parseApi, showDetails, applyDarkMode };
 
 let main,
   countries,
@@ -116,6 +116,7 @@ function showDetails(target) {
 
   insertBorderCountries(targetCountry);
   insertCurrencies(targetCountry);
+  applyDarkMode();
   let backButton = document.getElementById("back");
   backButton.onclick = hideDetails;
 }
@@ -152,4 +153,16 @@ function insertCurrencies(targetCountry) {
 function hideDetails() {
   detailsContainer.remove();
   document.body.append(main);
+  applyDarkMode();
+}
+
+function applyDarkMode() {
+  let darkMode = document.cookie.split(": ")[1];
+  let modeAffectedElements = document.querySelectorAll(
+    "body, header, .search, .country, .details"
+  );
+  Array.from(modeAffectedElements).forEach((element) => {
+    if (darkMode === "true") element.classList.add("dark");
+    else element.classList.remove("dark");
+  });
 }

@@ -1,15 +1,19 @@
-import { parseApi, showDetails, filterCountries } from "./modules.js";
+import {
+  parseApi,
+  showDetails,
+  filterCountries,
+  applyDarkMode,
+} from "./modules.js";
 
 // Dark Mode Switch
-let countries, modeAffectedElements;
+let countries,
+  darkMode = false;
+document.cookie = `darkMode: false;`;
 let darkModeSwitch = document.querySelector(".mode");
 darkModeSwitch.onclick = () => {
-  modeAffectedElements = document.querySelectorAll(
-    "body, header, .search, .country, .details"
-  );
-  Array.from(modeAffectedElements).forEach((element) => {
-    element.classList.toggle("dark");
-  });
+  darkMode = !darkMode;
+  document.cookie = `darkMode: ${darkMode};`;
+  applyDarkMode();
 };
 
 // Countries API Call
